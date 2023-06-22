@@ -2,7 +2,6 @@
 
 @section('content')
 
-@include('videojuegos.layout.menu')
 
 <div class='row'>
   <div class='col-sm-8 offset-sm-2'>
@@ -20,7 +19,7 @@
       @endif
 
       
-      <form class="my-3" method='post' action="{{ route('videojuegos.store') }}">
+      <form class="my-3" method='post' action="{{ route('videojuegos.store') }}" enctype="multipart/form-data">
         @csrf
         <div class='form-group mb-3'>
           <label for='isan'>ISAN:</label>
@@ -41,6 +40,10 @@
         <div class='form-group mb-3'>
           <label for='genero'>Género:</label>
           <input id="genero" type='text' class='form-control' name='genero' />
+        </div>
+        <div class='form-group mb-3'>
+          <label for='imagen'>Imagen:</label>
+          <input id="imagen" type='file' class='form-control' name='imagen' />
         </div>
         <div class='form-group mb-4'>
           <label for='año'>Año:</label>

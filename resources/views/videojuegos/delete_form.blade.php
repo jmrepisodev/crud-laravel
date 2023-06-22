@@ -2,7 +2,6 @@
 
 @section('content')
 
-@include('videojuegos.layout.menu')
     
 
   <h2>Eliminar</h2>

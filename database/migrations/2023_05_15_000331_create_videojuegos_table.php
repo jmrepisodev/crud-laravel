@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('isan');
             $table->string('titulo');
+            $table->string('imagen');
             $table->string('desarrollador');
             $table->string('distribuidor');
             $table->string('genero');

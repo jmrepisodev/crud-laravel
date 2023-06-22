@@ -12,6 +12,7 @@ class Videojuego extends Model
     protected $fillable = [
         'isan',
         'titulo',
+        'imagen',
         'desarrollador',
         'distribuidor',
         'genero',

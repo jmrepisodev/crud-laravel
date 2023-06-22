@@ -39,7 +39,6 @@ use App\Http\Controllers\VideojuegoController;
 
 //INDICE
 Route::get('/', [VideojuegoController::class, 'index'])->name("/");
-Route::get('/videojuegos/juegos', [VideojuegoController::class, 'juegos'])->name('videojuegos.juegos');
 Route::get('/videojuegos/about', [VideojuegoController::class, 'about'])->name('videojuegos.about');
 Route::get('/videojuegos/contacto', [VideojuegoController::class, 'contacto'])->name('videojuegos.contacto');
 Route::get('/videojuegos/admin', [VideojuegoController::class, 'admin'])->name('videojuegos.admin');

@@ -2,7 +2,6 @@
 
 @section('content')
 
-@include('videojuegos.layout.menu')
     
     <div class='row'>
         <div class='col-sm-8 offset-sm-2'>
@@ -20,7 +19,7 @@
             @endif
 
             @isset($videojuego)
-            <form action="{{ route('videojuegos.update',$videojuego->id) }}" method="post">
+            <form action="{{ route('videojuegos.update',$videojuego->id) }}" method="post"  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
             
@@ -48,6 +47,10 @@
                     <div class='form-group mb-3'>
                         <label for='genero'>Género:</label>
                         <input id="genero" type='text' value="{{ $videojuego->genero}}" class='form-control' name='genero' />
+                    </div>
+                    <div class='form-group mb-3'>
+                        <label for='imagen'>Imagen:</label>
+                        <input id="imagen" type='file' class='form-control' name='imagen' />
                     </div>
                     <div class='form-group mb-4'>
                         <label for='año'>Año:</label>

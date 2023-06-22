@@ -31,29 +31,35 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <a class="btn btn-primary me-3" href="{{route('/')}}"><i class="fas fa-list me-2"></i>Index</a>
-                    </div>
-                    
-                </div>
 
 
-                <div class="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
-                    @auth
-                    <div class='dropdown me-3'>
-                        <a class='btn btn-success nav-link dropdown-toggle text-white' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                        <i class='fas fa-user-circle me-2'></i>{{ Auth::user()->name }} ({{ Auth::user()->role }})</a>
-                        </a>
-                        <ul class='dropdown-menu dropdown-menu-dark' aria-labelledby='navbarDropdown'>
-                            <li><a class='dropdown-item' href='{{ route("logout") }}'>Cerrar sesión</a></li>
-                        </ul>
+                <div class="navbar-nav collapse navbar-collapse mb-2 mb-lg-0" id="navbarSupportedContent">
+                    <a class="nav-item nav-link {{request()->routeIs('videojuegos.index') ? 'active' : ''}}"  href='{{ route("videojuegos.index") }}'>Inicio</a>
+                    <a class="nav-item nav-link {{request()->routeIs('videojuegos.about') ? 'active' : ''}}"  href='{{ route("videojuegos.about") }}'>Sobre nosotros</a>
+                    <a class="nav-item nav-link {{request()->routeIs('videojuegos.contacto') ? 'active' : ''}}"  href='{{ route("videojuegos.contacto") }}'>Contacto</a>
+                    
+                    <div class="navbar-nav navbar-right ms-auto">
+                        
+                        @auth
+                        <div class='dropdown me-3'>
+                            <a class='btn btn-success nav-link dropdown-toggle text-white' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                <i class='fas fa-user-circle me-2'></i>{{ Auth::user()->name }} ({{ Auth::user()->role }})</a>
+                            </a>
+                            <ul class='dropdown-menu dropdown-menu-dark' aria-labelledby='navbarDropdown'>
+                                @if(Auth::user()->role =='admin')
+                                <li><a class="dropdown-item"  href='{{ route("videojuegos.create") }}'>Agregar juego</a></li>
+                                @endif
+                                <li><a class='dropdown-item' href='{{ route("logout") }}'>Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                        
+                        @else
+                            <a class='btn btn-success me-3' href='{{ route("login") }}'><i class='fas fa-sign-in-alt me-2'></i>Login</a> |
+                            <a class='btn btn-danger me-3' href='{{ route("register") }}'><i class='fas fa-solid fa-user-plus me-2'></i>Registrar</a>
+                        @endauth    
                     </div>
                     
-                    @else
-                        <a class='btn btn-success me-3' href='{{ route("login") }}'><i class='fas fa-sign-in-alt me-2'></i>Login</a> |
-                        <a class='btn btn-danger me-3' href='{{ route("register") }}'><i class='fas fa-solid fa-user-plus me-2'></i>Registrar</a>
-                    @endauth              
+                            
                 </div>
 
             </div>

@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('videojuegos.layout.menu')
-
         <h1 class='display-3'>Sobre nosotros</h1>
 
        <h2>Sobre nosotros</h2>

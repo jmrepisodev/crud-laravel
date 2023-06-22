@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Videojuego;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class VideojuegoController extends Controller
 {
@@ -14,25 +15,11 @@ class VideojuegoController extends Controller
     public function index()
     {
         
-        return view('videojuegos.index');
+        $videojuegos = Videojuego::all();
+        //compact() agrega una variable con el array videojuegos
+        return view('videojuegos.index', compact('videojuegos'));
     }
 
-    public function juegos()
-    {
-        if (Auth::check())
-        {
-            $videojuegos = Videojuego::all();
-            //compact() agrega una variable con el array videojuegos
-            return view('videojuegos.juegos', compact('videojuegos'));
-        }
-        else
-        {
-            return redirect()->route('videojuegos.index')
-            ->with('failure', 'Inicia sesión para poder continuar.');
-        }
-        
-        
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -72,20 +59,38 @@ class VideojuegoController extends Controller
         {
             if (Auth::user()->role === 'admin')
             {
-                $videojuego = $request->validate([
+                $request->validate([
                     'isan'=>'required|numeric',
                     'titulo'=>'required|string|max:125',
+                    'imagen' => 'required|image|mimes:png,jpg,jpeg|max:2048',
                     'desarrollador'=>'required|string|max:255',
                     'distribuidor'=>'required|string|max:255',
                     'genero'=>'required|string|max:125',
                     'año'=>'required|numeric'
                    
                 ]);
+
+                if($request->hasFile('imagen')):
+                    $imagen=$request->file('imagen');
+                    $nombreimagen=Str::slug($request->titulo).".".$imagen->extension();
+                    $ruta=public_path('/img');
+                    $imagen->move($ruta, $nombreimagen);
+                endif;
+
+                Videojuego::create([
+                    'isan'=>$request->input('isan'),
+                    'titulo'=>$request->input('titulo'),
+                    'imagen' => $nombreimagen,
+                    'desarrollador'=>$request->input('desarrollador'),
+                    'distribuidor'=>$request->input('distribuidor'),
+                    'genero'=>$request->input('genero'),
+                    'año'=>$request->input('año')
+                ]);
             
                 //save VS create: create requiere definir "fillable" dentro del modelo, solo crea, no actualiza.
-                Videojuego::create($videojuego);
+                
             
-                return redirect('/videojuegos/juegos')->with('success', '¡Videojuego registrado correctamente!');
+                return redirect('/videojuegos')->with('success', '¡Videojuego registrado correctamente!');
             }
             else
             {
@@ -157,22 +162,31 @@ class VideojuegoController extends Controller
                 $request->validate([
                     'isan'=>'required|numeric',
                     'titulo'=>'required|string|max:125',
+                    'imagen' => 'required|image|mimes:png,jpg,jpeg|max:2048',
                     'desarrollador'=>'required|string|max:255',
                     'distribuidor'=>'required|string|max:255',
                     'genero'=>'required|string|max:125',
                     'año'=>'required|numeric'
-                
+                   
                 ]);
+
+                if($request->hasFile('imagen')):
+                    $imagen=$request->file('imagen');
+                    $nombreimagen=Str::slug($request->titulo).".".$imagen->extension();
+                    $ruta=public_path('/img');
+                    $imagen->move($ruta, $nombreimagen);
+                endif;
     
                 $videojuego->isan = $request->input('isan');
                 $videojuego->titulo = $request->input('titulo');
+                $videojuego->imagen = $nombreimagen;
                 $videojuego->desarrollador = $request->input('desarrollador');
                 $videojuego->distribuidor = $request->input('distribuidor');
                 $videojuego->genero = $request->input('genero');
                 $videojuego->año = $request->input('año');
                 $videojuego->save();
     
-                return redirect()->route('videojuegos.juegos')
+                return redirect()->route('videojuegos.index')
                 ->with('success', 'Videojuego actualizado correctamente.');
             }
             else
@@ -206,7 +220,7 @@ class VideojuegoController extends Controller
             {
                 $videojuego->delete();
 
-                return redirect()->route('videojuegos.juegos')
+                return redirect()->route('videojuegos.index')
                 ->with('success', 'Videojuego eliminado correctamente.');
             }
             else
@@ -232,6 +246,7 @@ class VideojuegoController extends Controller
     {
         return view('videojuegos.edit_form');
     }
+
 
     public function editById(Request $request)
     {
