@@ -66,6 +66,7 @@ class VideojuegoController extends Controller
                     'desarrollador'=>'required|string|max:255',
                     'distribuidor'=>'required|string|max:255',
                     'genero'=>'required|string|max:125',
+                    'precio'=>'required|numeric',
                     'año'=>'required|numeric'
                    
                 ]);
@@ -84,7 +85,8 @@ class VideojuegoController extends Controller
                     'desarrollador'=>$request->input('desarrollador'),
                     'distribuidor'=>$request->input('distribuidor'),
                     'genero'=>$request->input('genero'),
-                    'año'=>$request->input('año')
+                    'precio'=>$request->input('precio'),
+                    'año'=>$request->input('año'),
                 ]);
             
                 //save VS create: create requiere definir "fillable" dentro del modelo, solo crea, no actualiza.
@@ -166,6 +168,7 @@ class VideojuegoController extends Controller
                     'desarrollador'=>'required|string|max:255',
                     'distribuidor'=>'required|string|max:255',
                     'genero'=>'required|string|max:125',
+                    'precio'=>'required|numeric',
                     'año'=>'required|numeric'
                    
                 ]);
@@ -184,6 +187,7 @@ class VideojuegoController extends Controller
                 $videojuego->distribuidor = $request->input('distribuidor');
                 $videojuego->genero = $request->input('genero');
                 $videojuego->año = $request->input('año');
+                $videojuego->precio= $request->input('precio');
                 $videojuego->save();
     
                 return redirect()->route('videojuegos.index')

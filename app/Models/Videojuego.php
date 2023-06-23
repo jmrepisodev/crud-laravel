@@ -16,6 +16,7 @@ class Videojuego extends Model
         'desarrollador',
         'distribuidor',
         'genero',
+        'precio',
         'año'
     ];
     

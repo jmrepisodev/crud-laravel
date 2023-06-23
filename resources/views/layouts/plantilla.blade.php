@@ -7,6 +7,7 @@
     <meta name="author" content="José Miguel Repiso García">
     <meta name="description" content="Tarea 07 - DWES">
    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -37,9 +38,22 @@
                     <a class="nav-item nav-link {{request()->routeIs('videojuegos.index') ? 'active' : ''}}"  href='{{ route("videojuegos.index") }}'>Inicio</a>
                     <a class="nav-item nav-link {{request()->routeIs('videojuegos.about') ? 'active' : ''}}"  href='{{ route("videojuegos.about") }}'>Sobre nosotros</a>
                     <a class="nav-item nav-link {{request()->routeIs('videojuegos.contacto') ? 'active' : ''}}"  href='{{ route("videojuegos.contacto") }}'>Contacto</a>
-                    
+
                     <div class="navbar-nav navbar-right ms-auto">
-                        
+                        <div class="dropdown me-3">
+                            <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role='button' data-bs-toggle='dropdown' aria-expanded='false' aria-haspopup="true">
+                                <span class="badge badge-pill badge-dark">
+                                    <i class="fa fa-shopping-cart"></i> {{ \Cart::getTotalQuantity()}}
+                                </span>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1" style="width: 450px; padding: 0px; border-color: #9DA0A2">
+                                <ul class="list-group" style="margin: 20px;">
+                                    @include('partials.cart-drop')
+                                </ul>
+                            </div>
+                        </div>
+
                         @auth
                         <div class='dropdown me-3'>
                             <a class='btn btn-success nav-link dropdown-toggle text-white' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
@@ -56,7 +70,9 @@
                         @else
                             <a class='btn btn-success me-3' href='{{ route("login") }}'><i class='fas fa-sign-in-alt me-2'></i>Login</a> |
                             <a class='btn btn-danger me-3' href='{{ route("register") }}'><i class='fas fa-solid fa-user-plus me-2'></i>Registrar</a>
-                        @endauth    
+                           
+                        @endauth  
+                       
                     </div>
                     
                             

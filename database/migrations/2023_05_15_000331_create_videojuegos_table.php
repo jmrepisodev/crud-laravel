@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('distribuidor');
             $table->string('genero');
             $table->string('año');
+            $table->double('precio');
         });
     }
 

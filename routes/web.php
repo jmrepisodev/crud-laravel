@@ -48,14 +48,6 @@ Route::get('/videojuegos/admin', [VideojuegoController::class, 'admin'])->name('
 Route::get('/videojuegos', [VideojuegoController::class, 'index'])
 ->name('videojuegos.index');
 
-Route::get('/videojuegos/editform', [VideojuegoController::class, 'editForm'])
-->name('videojuegos.editform');
-Route::post('/videojuegos/editbyid', [VideojuegoController::class, 'editById'])
-->name('videojuegos.editbyid');
-
-Route::get('//videojuegos/delform', [VideojuegoController::class, 'delForm'])
-->name('videojuegos.delform');
-
 Route::get('/videojuegos/create',[VideojuegoController::class, 'create'])->name('videojuegos.create');
 Route::post('/videojuegos',[VideojuegoController::class, 'store'])->name('videojuegos.store');
 Route::get('/videojuegos/{videojuego}',[VideojuegoController::class, 'show'])->name('videojuegos.show');
@@ -63,5 +55,17 @@ Route::get('/videojuegos/{videojuego}/edit',[VideojuegoController::class, 'edit'
 
 Route::put('/videojuegos/{videojuego}',[VideojuegoController::class, 'update'])->name('videojuegos.update');
 Route::delete('/videojuegos/{videojuego}',[VideojuegoController::class, 'destroy'])->name('videojuegos.destroy');
+
+
+//Carrito de compras
+use App\Http\Controllers\CartController;
+
+Route::get('/', [CartController::class, 'shop'])->name('shop');
+Route::get('/cart', [CartController::class, 'cart'])->name('cart.index');
+Route::post('/add', [CartController::class, 'add'])->name('cart.store');
+Route::post('/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
+
 
 

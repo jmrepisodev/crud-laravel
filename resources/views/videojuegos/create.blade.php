@@ -45,6 +45,10 @@
           <label for='imagen'>Imagen:</label>
           <input id="imagen" type='file' class='form-control' name='imagen' />
         </div>
+        <div class='form-group mb-3'>
+          <label for='precio'>Precio:</label>
+          <input id="precio" type='number' class='form-control' name='precio' />
+        </div>
         <div class='form-group mb-4'>
           <label for='año'>Año:</label>
           <input id="año" type='number' class='form-control' name='año' />
